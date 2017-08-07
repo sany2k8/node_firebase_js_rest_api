@@ -61,12 +61,29 @@ router.get('/get-user/:uid',function(req,res){
 
 // Firebase update single user by id
 router.put('/update-user/:uid',function(req,res){
-  res.send('update single user');
+       
+        var user = {};
+        var uid = req.params.uid;
+        var data = req.body;
+        usersRef.child(uid).update(data,function(err){
+          if(err){
+            res.json(err);
+          }else{
+            res.json({message:"User updated successfully..."});
+          }
+        });
 });
 
 // Firebase delete single user by id
 router.delete('/delete-user/:uid',function(req,res){
-  res.send('delete signgle user');
+        var uid = req.params.uid;
+        usersRef.child(uid).remove(function(err){
+          if(err){
+            res.json(err);
+          }else{
+            res.json({message:"User deleted successfully..."});
+          }
+        });
 });
 
 module.exports = router;
