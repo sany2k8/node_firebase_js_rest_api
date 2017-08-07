@@ -18,8 +18,18 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+// Firebase add new user
 router.post('/add-user',function(req,res){
-  res.send('add new user');
+  
+        var args = {};
+        data = req.body;
+        usersRef.push(data,function(err){
+          if(err){
+            res.json(err);
+          }else{
+            res.json({message:"User added successfully..."});
+          }
+        });
 });
 
 // Firebase get all users
